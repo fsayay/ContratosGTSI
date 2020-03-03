@@ -1,0 +1,70 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ titulo }}</h4>
+  <button type="button" class="close" aria-label="Close"
+          (click)="activeModal.dismiss('Cross click')">x
+  </button>
+</div>
+<form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <div class="modal-boy">
+    <div class="container">
+      <div class="form-group row">
+        <label for="qn_tipoGarantia" class="col-sm-4 col-form-label">Tipo de Garantia</label>
+        <div class="col-sm-8">
+          <select class="form-control" id="qn_tipoGarantia" formControlName="qn_tipoGarantia">
+            <option selected disabled>Seleccione</option>
+            <option *ngFor="let tipo of tiposGarantia" [ngValue]="qn_tipoGarantia" value="{{tipo.tipoID}}">{{tipo.txt_nombreTipo}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="txt_codigoGarantia" class="col-sm-4 col-form-label">C&oacute;digo</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="txt_codigoGarantia">
+        </div>
+        <span *ngIf="codigo.invalid && (codigo.dirty || codigo.touched)" class="alert alert-danger">
+          <span *ngIf="codigo.errors.required">
+            El codigo de garantia es requerido
+          </span>
+        </span>
+      </div>
+      <div class="form-group row">
+        <label for="vm_valorGarantia" class="col-sm-4 col-form-label">Valor de Garant&iacute;a</label>
+        <div class="col-sm-8">
+          <input type="number" value="cantidad" class="form-control" formControlName="vm_valorGarantia" (change)="updateValue($event.target.value)">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="txt_proveedorGarantia" class="col-sm-4 col-form-label">Proveedor</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="txt_proveedorGarantia" id="txt_proveedorGarantia" name="txt_proveedorGarantia">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="dt_inicioGarantia" class="col-sm-4 col-form-label" #fInicio>Fecha Inicio</label>
+        <div class="col-sm-8">
+          <input class="form-control" type="date" formControlName="dt_inicioGarantia" id="dt_inicioGarantia" name="dt_inicioGarantia">        
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="dt_finGarantia" class="col-sm-4 col-form-label" #fFin>Fecha Fin</label>
+        <div class="col-sm-8">          
+            <input class="form-control" type="date" formControlName="dt_finGarantia" disable id="dt_finGarantia" name="dt_finGarantia">          
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="txt_archivoGarantia" class="col-sm-4 col-form-label">Subir Archivo</label>
+        <div class="col-sm-8">
+          <input #file type="file" class="form-control-file" #archivo formControlName="txt_archivoGarantia" multiple (change)="upload(file.files)" accept=".pdf" id="txt_archivoGarantia" name="txt_archivoGarantia" />                    
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer row">
+    <div class="col-6">
+      <button class="btn btn-primary" [disabled]="!formGroup.valid">Aceptar</button>
+    </div>
+    <div class="col-5">
+      <button (click)="activeModal.dismiss('Close clicked')">Cancelar</button>
+    </div>
+  </div>
+</form>

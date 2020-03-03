@@ -1,0 +1,53 @@
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <app-menu></app-menu>
+    </div>
+    <div class="col-10 content">
+      <div class="title borde-title">
+        <a [routerLink]="['/Configuracion']"> Categoria</a> / Tipos de {{ categoriaActual.txt_nombreSeccion }}
+      </div>
+      <div class="content-section">
+        <div class="table">
+          <div class="table-responsive">
+            <span class="table-add float-right mb-0 mr-0">
+              <a class="text-warning" (click)="openFormModal()">
+                <i class="fa fa-fw fa-plus fa-2x" aria-hidden="true"></i>
+              </a>
+            </span>
+            <div class="text-center" *ngIf="!(showSpinner && tipos)">
+              <mat-progress-spinner class="example-margin"
+                                    [color]="color"
+                                    [mode]="mode"
+                                    [value]="value">
+              </mat-progress-spinner>
+            </div>
+            <!--p *ngIf="!(tipos && tipos.length)">
+              No Existen Datos que Mostrar
+            </p-->
+            <div *ngIf="tipos && tipos.length">
+              <table class="table table-striped-sm table-hover text-center">
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre Tipo</th>
+                    <th scope="col">Detalle</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor=" let tipo of tipos | paginate: { itemsPerPage: 4, currentPage: paginaActual} ">
+                    <td>{{ tipo.txt_nombreTipo }}</td>
+                    <td>{{ tipo.txt_detalleTipo }}</td>
+                    <td><a (click)="editarTipo(tipo)"><i class="fa fa-refresh" aria-hidden="true"></i></a></td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="paginaActual = $event" *ngIf="tipos.length>4"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

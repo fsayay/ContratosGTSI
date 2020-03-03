@@ -1,0 +1,26 @@
+<div class="modal-header">
+  <h4 class="modal-title">Informes</h4>
+  <button type="button" class="close" aria-label="Close"
+          (click)="activeModal.dismiss('Cross click')">
+    x
+  </button>
+</div>
+<table class="table table-striped-sm table-hover text-center">
+  <thead>
+    <tr>
+      <th scope="col">C&oacute;digo</th>
+      <th scope="col">Tipo de Informe</th>
+      <th scope="col">Fecha de Informe</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor=" let informe of informes | paginate: { itemsPerPage: 4, currentPage: paginaActual} " (click)="submitForm(informe.txt_codigoInforme)">
+      <td>{{ informe.txt_codigoInforme }}</td>
+      <td>{{ informe.qn_tipoInforme }}</td>
+      <td>{{ informe.dt_fechaInforme | date: 'dd-MM-yyyy'  }}</td>
+    </tr>
+  </tbody>
+</table>
+<div class="modal-footer">
+  <button (click)="activeModal.dismiss('Close clicked')">Cancelar</button>
+</div>

@@ -1,0 +1,59 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <app-sidenav></app-sidenav>
+    </div>
+    <div class="col-10 content">
+      <div class="title borde-title">
+        <a [routerLink]="['/contratos']"> Contratos </a> / garantias
+      </div>
+      <div class="content-section">
+        <div class="table">
+          <div class="table-responsive">
+            <span class="table-add float-right mb-0 mr-0">
+              <a class="text-warning" (click)="agregarGarantia()">
+              <i class="fa fa-fw fa-plus fa-2x" aria-hidden="true"></i>
+              </a>
+            </span>
+            <p *ngIf="!(garantias && garantias.length)">
+              No Existen Datos que Mostrar
+            </p>
+            <div *ngIf="garantias && garantias.length">
+              <table class="table table-striped-sm table-hover text-center">
+                <thead>
+                  <tr>
+                    <th scope="col">C&oacute;digo</th>
+                    <th scope="col">Tipo de Garantia</th>
+                    <th scope="col">Proveedor</th>
+                    <th scope="col">Valor en Garantia</th>
+                    <th scope="col">Fecha Inicio</th>
+                    <th scope="col">Fecha Fin</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor=" let garantia of garantias | paginate: { itemsPerPage: 4, currentPage: paginaActual} ">
+                    <td>{{garantia.txt_codigoGarantia}}</td>
+                    <td>{{garantia.tipoGarantia}}</td>
+                    <td>{{garantia.txt_proveedorGarantia}}</td>
+                    <td>{{garantia.vm_valorGarantia | currency }}</td>
+                    <td>{{garantia.dt_inicioGarantia | date: 'dd-MM-yyyy'}}</td>
+                    <td>{{garantia.dt_finGarantia | date: 'dd-MM-yyyy'}}</td>
+                    <td><a (click)="editarGarantia(garantia)"><i class="fa fa-edit" aria-hidden="true"></i></a></td>
+                    <td><a (click)="openPdfViewer(garantia.txt_archivoGarantia)"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></td>
+                    <td><a (click)="verPdf(garantia.txt_archivoGarantia)"><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="paginaActual = $event" *ngIf="garantias.length>4"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,0 +1,66 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <app-sidenav></app-sidenav>
+    </div>
+    <div class="col-10 content">
+      <div class="title borde-title">
+        <a [routerLink]="['/contratos']"> Contratos </a> / Historial
+      </div>
+      <!--div class="content-section">
+        <div class="shadow-sm rounded" *ngFor="let hist of historial">
+          <div class="border-bottom p-3 mb-1">
+            {{ hist.dt_fechaAccion | date:'EEEE, d MMMM, yyyy'}}            
+          </div>
+            <div class="row pl-3 pt-3 pb-3">
+              <div class="col-sm-2">
+                {{ hist.dt_fechaAccion | date:'h:mm a'}}
+              </div>
+              <div class="col-sm-3">
+                administador
+              </div>
+              <div class="col-sm-7">
+                {{ hist.txt_accionHistorial }}
+              </div>
+            </div>
+          </div>
+        </div-->
+    <div class="content-section">
+      <div class="table">
+        <div class="table-responsive">
+          <!--div class="text-center" *ngIf="!(showSpinner && historial)">
+            <mat-progress-spinner class="example-margin"
+                                  [color]="color"
+                                  [mode]="mode"
+                                  [value]="value">
+            </mat-progress-spinner>
+          </div-->
+          <div *ngIf="historial && historial.length">
+            <table class="table table-striped-sm table-hover text-center">
+              <thead>
+                <tr>
+                  <th scope="col">Fecha</th>
+                  <th scope="col">Hora</th>
+                  <th scope="col">Administrador</th>
+                  <th scope="col">Accion</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let hist of historial | paginate: { itemsPerPage: 4, currentPage: paginaActual} ">
+                  <td>{{ hist.dt_fechaUltimoCambio | date:'EEEE, d MMMM, yyyy'}}</td>
+                  <td>{{ hist.dt_fechaUltimoCambio | date:'h:mm a' }}</td>
+                  <td>{{ contrato.txt_nombreAdministrador }}</td>
+                  <td colspan="3">{{ hist.txt_accionHistorial }}</td>                  
+                </tr>
+              </tbody>
+            </table>
+            <pagination-controls (pageChange)="paginaActual = $event" *ngIf="historial.length>4"></pagination-controls>
+          </div>
+        </div>
+      </div>
+    </div>  
+      </div>
+    </div>
+  </div>

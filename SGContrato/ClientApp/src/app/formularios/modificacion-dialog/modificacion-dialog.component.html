@@ -1,0 +1,64 @@
+<div class="example-container">
+
+  <h2 mat-dialog-title>{{ titulo }}</h2>
+
+  <mat-dialog-content [formGroup]="formGroup">
+
+    <mat-form-field>
+      <mat-select placeholder="Tipo de Modificaci&oacute;n" formControlName="qn_tipoModificacion">
+        <mat-option *ngFor="let tipo of tiposModificacion" value="{{tipo.tipoID}}">{{tipo.txt_nombreTipo}}</mat-option>        
+      </mat-select>
+    </mat-form-field>
+    <div class="row fields-container small">
+      <div class="col-md-6">
+        <mat-checkbox class="example-margin" [(ngModel)]="disabled">Modificar Monto</mat-checkbox>
+      </div>
+    </div>
+    <div class="row fields-container small">
+      <div class="col-md-6">
+        <mat-form-field>
+          <input matInput placeholder="Monto Actual" readonly formControlName="vm_valorAnterior">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <input matInput [value]="cantidad" placeholder="Nuevo Monto" (change)="updateValue($event.target.value)" formControlName="vm_valorActual">
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="row fields-container small">
+      <div class="col-md-6">
+        <mat-checkbox class="example-margin">Modificar Plazo</mat-checkbox>
+      </div>
+    </div>
+    <div class="row fields-container small">
+      <div class="col-md-6">
+        <mat-form-field>
+          <input matInput placeholder="Fecha Actual" readonly formControlName="dt_fechaAnterior">
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field>
+          <input matInput [matDatepicker]="fechaSubs2" placeholder="Nueva Fecha" readonly formControlName="dt_fechaActual">
+          <mat-datepicker-toggle matSuffix [for]="fechaSubs2"></mat-datepicker-toggle>
+          <mat-datepicker #fechaSubs2 disabled="false"></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Motivo de la Modificacion</mat-label>
+      <textarea matInput formControlName="txt_motivoModificacion"></textarea>
+    </mat-form-field>
+
+  </mat-dialog-content>
+
+  <mat-dialog-actions>
+    <button class="mat-raised-button" (click)="close()">Cancelar</button>
+    <button class="mat-raised-button mat-primary" (click)="save()">Guardar</button>
+  </mat-dialog-actions>
+
+
+</div>
+
+

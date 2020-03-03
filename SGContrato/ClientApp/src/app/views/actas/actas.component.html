@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <app-sidenav></app-sidenav>
+    </div>
+    <div class="col-10 content">
+      <div class="title borde-title">
+        <a [routerLink]="['/contratos']"> Contratos </a> / actas de entrega-recepci&oacute;n
+      </div>
+      <div class="content-section">
+        <div class="table">
+          <div class="table-responsive">
+            <span class="table-add float-right mb-0 mr-0">
+              <a class="text-warning" (click)="openFormModal()">
+                <i class="fa fa-fw fa-plus fa-2x" aria-hidden="true"></i>
+              </a>
+            </span>
+            <p *ngIf="!(actas && actas.length)">
+              No Existen Datos que Mostrar
+            </p>
+            <div *ngIf="actas && actas.length">
+              <table class="table table-striped-sm table-hover text-center">
+                <thead>
+                  <tr>
+                    <th scope="col">C&oacute;digo Acta</th>
+                    <th scope="col">Tipo de Acta</th>
+                    <th scope="col">Fecha de Acta</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor=" let acta of actas | paginate: { itemsPerPage: 4, currentPage: paginaActual} ">
+                    <td>{{ acta.txt_codigoActa }}</td>
+                    <td>{{ acta.tipoActa }}</td>
+                    <td>{{ acta.dt_fechaActa | date: 'dd-MM-yyyy' }}</td>
+                    <td><a (click)="updateActa(acta)"><i class="fa fa-edit" aria-hidden="true"></i></a></td>
+                    <td><a><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="paginaActual = $event" *ngIf="actas.length>4"></pagination-controls>
+            </div>            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>

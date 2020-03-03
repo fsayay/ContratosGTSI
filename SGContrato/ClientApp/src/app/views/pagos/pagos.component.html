@@ -1,0 +1,61 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <app-sidenav></app-sidenav>
+    </div>
+    <div class="col-10 content">
+      <div class="title borde-title">
+        <a [routerLink]="['/contratos']"> Contratos </a> / formas de pago
+      </div>
+      <div class="content-section">
+        <div class="table">
+          <div class="table-responsive">
+            <span class="table-add float-right mb-0 mr-0">
+              <a class="text-warning" (click)="openDialog()">
+                <i class="fa fa-fw fa-plus fa-2x" aria-hidden="true"></i>
+              </a>
+            </span>
+            <p *ngIf="!(pagos && pagos.length)">
+              No Existen Datos que Mostrar
+            </p>
+            <div *ngIf="pagos && pagos.length">
+              <table class="table table-striped-sm table-hover text-center">
+                <thead>
+                  <tr>
+                    <th scope="col">Porcentaje(%)</th>
+                    <th scope="col">Monto</th>
+                    <th scope="col">Fecha Tentativa de Pago</th>
+                    <th scope="col"># Comprobante</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor=" let pago of pagos | paginate: { itemsPerPage: 4, currentPage: paginaActual} ">
+                    <td>{{ pago.qn_porcentajePago }}</td>
+                    <td>{{ pago.vm_montoPago | currency }}</td>
+                    <td>{{ pago.dt_tentativaPago }}</td>
+                    <td (click)="cargarComprobante(pago.pago.ID)"> - </td>
+                    <td><a><i class="fa fa-edit" aria-hidden="true"></i></a></td>
+                    <td><a><i class="fa fa-eye" aria-hidden="true"></i></a></td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="paginaActual = $event" *ngIf="pagos.length>itemsPerPage"></pagination-controls>
+              <div class="row">
+                <div class="col-sm-3">
+                  <label>Tipo de Pago</label>
+                </div>
+                <div class="col-sm-9">
+                  <input type="text" name="txt_nombreTipo" value="{{ tipo.txt_nombreTipo }}" readonly/>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>
+
+

@@ -1,0 +1,34 @@
+<div class="modal-header">
+  <h4 class="modal-title">Nuevo Rol</h4>
+  <button type="button" class="close" aria-label="Close"
+          (click)="activeModal.dismiss('Cross click')">
+    x
+  </button>
+</div>
+<form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <div class="modal-boy">
+    <div class="container">
+      <div class="form-group row">
+        <label for="txt_rolName" class="col-sm-4 col-form-label">Nombre</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="txt_rolName" id="txt_rolName" name="txt_rolName">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="txt_rolDetaile" class="col-sm-4 col-form-label">Detalle</label>
+        <div class="col-sm-8">
+          <textarea class="form-control" id="txt_rolDetaile" formControlName="txt_rolDetaile" name="txt_rolDetaile" rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer row">
+    <div class="col-6">
+      <button class="btn btn-primary" [disabled]="!formGroup.valid">Aceptar</button>
+    </div>
+    <div class="col-5">
+      <button (click)="activeModal.dismiss('Close clicked')">Cancelar</button>
+    </div>
+  </div>
+</form>
+

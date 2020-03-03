@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <app-menu></app-menu>
+    </div>
+    <div class="col-10 content">
+      <div class="title borde-title">
+        <a [routerLink]="['/Configuracion']"> Configuracion </a>/ Roles
+      </div>
+      <div class="content-section">
+        <div class="table">
+          <div class="table-responsive">
+            <span class="table-add float-right mb-0 mr-0">
+              <a class="text-warning" (click)="openFormModal()">
+                <i class="fa fa-fw fa-plus fa-2x" aria-hidden="true"></i>
+              </a>
+            </span>
+            <div class="text-center" *ngIf="!(showSpinner && roles)">
+              <mat-progress-spinner class="example-margin"
+                                    [color]="color"
+                                    [mode]="mode"
+                                    [value]="value">
+              </mat-progress-spinner>
+            </div>
+            <!--p *ngIf="!(roles && roles.length)">
+              No Existen Datos que Mostrar
+            </p-->
+            <div *ngIf="roles && roles.length">
+              <table class="table table-striped-sm table-hover text-center">
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre de Rol</th>
+                    <th scope="col">Detalle</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor=" let rol of roles | paginate: { itemsPerPage: 4, currentPage: paginaActual} ">
+                    <td>{{ rol.txt_rolName }}</td>
+                    <td>{{ rol.txt_rolDetaile }}</td>
+                    <td><a (click)="editarRol(rol)"><i class="fa fa-refresh" aria-hidden="true"></i></a></td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="paginaActual = $event" *ngIf="roles.length>4"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

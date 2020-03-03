@@ -1,0 +1,12 @@
+<div class="collapse navbar-collapse d-sm-inline-flex flex-sm-row-reverse" [ngClass]="{ show: isExpanded }">
+  <ul class="nav navbar-nav side-nav flex-grow">
+    <li>
+      <a [routerLink]="['/contratos']" data-toggle="collapse" data-target="#submenu-contract"><i class="fa fa-fw fa-cog"></i><strong>Configuraci&oacute;n</strong><i class="fa fa-angle-double-down pull-right"></i></a>
+      <ul class="collapse show">
+        <li><a [routerLink]="['/Configuracion']"><i class="fa fa-fw fa-book"></i><small> Categoria</small></a></li>
+        <li><a [routerLink]="['/usuarios']"><i class="fa fa-fw fa-user"></i><small> Usuarios</small></a></li>
+        <li><a [routerLink]="['/roles']"><i class="fa fa-fw fa-users"></i><small> Roles</small></a></li>        
+      </ul>
+    </li>
+  </ul>
+</div>

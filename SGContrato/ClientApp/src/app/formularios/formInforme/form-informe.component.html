@@ -1,0 +1,47 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ titulo }}</h4>
+  <button type="button" class="close" aria-label="Close"
+          (click)="activeModal.dismiss('Cross click')">x
+  </button>
+</div>
+<form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <div class="modal-boy">
+    <div class="container">
+      <div class="form-group row">
+        <label for="qn_tipoInforme" class="col-sm-4 col-form-label">Tipo de Informe</label>
+        <div class="col-sm-8">
+          <select class="form-control" id="qn_tipoInforme" formControlName="qn_tipoInforme">
+            <option selected disabled>Seleccione</option>
+            <option *ngFor="let tipo of tiposInforme" [ngValue]="qn_tipoInforme" value="{{tipo.tipoID}}">{{tipo.txt_nombreTipo}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="txt_codigoInforme" class="col-sm-4 col-form-label">C&oacute;digo</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="txt_codigoInforme" id="txt_codigoInforme" name="txt_codigoInforme">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="dt_fechaInforme" class="col-sm-4 col-form-label">Fecha Informe</label>
+        <div class="col-sm-8">
+          <input class="form-control" type="date" formControlName="dt_fechaInforme" id="dt_fechaInforme" name="dt_fechaInforme">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="txt_archivoInforme" class="col-sm-4 col-form-label">Subir Archivo</label>
+        <div class="col-sm-8">
+          <input #file type="file" class="form-control-file" formControlName="txt_archivoInforme" multiple (change)="upload(file.files)" accept=".pdf" id="txt_archivoInforme" name="txt_archivoInforme" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer row">
+    <div class="col-6">
+      <button class="btn btn-primary" [disabled]="!formGroup.valid">Aceptar</button>
+    </div>
+    <div class="col-5">
+      <button (click)="activeModal.dismiss('Close clicked')">Cancelar</button>
+    </div>
+  </div>
+</form>

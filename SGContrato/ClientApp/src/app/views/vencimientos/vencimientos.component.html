@@ -1,0 +1,45 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <app-sidenav></app-sidenav>
+    </div>
+    <div class="col-10 content">
+      <div class="title borde-title">
+        <a [routerLink]="['/contratos']"> Contratos </a> / vencimientos
+      </div>
+      <div class="content-section">
+        <div class="table">
+          <div class="table-responsive">
+            <span class="table-add float-right mb-0 mr-0">
+              <a class="text-warning" (click)="openFormModal()">
+                <i class="fa fa-fw fa-plus fa-2x" aria-hidden="true"></i>
+              </a>
+            </span>
+            <table class="table table-striped-sm table-hover text-center">
+              <thead>
+                <tr>
+                  <td>Categoria</td>
+                  <td>Tipo</td>
+                  <td>Fecha a Recordar</td>
+                  <td>Dias de Anticipaci&oacute;n</td>
+                  <td>Frecuencia de Notificacion</td>
+                  <td></td>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let vencimiento of vencimientos | paginate: { itemsPerPage: 4, currentPage: paginaActual}">
+                  <td>{{ vencimiento.txt_nombreSeccion }}</td>
+                  <td>{{ vencimiento.txt_nombreTipo }}</td>
+                  <td>{{ vencimiento.dt_fechaVencimiento }}</td>
+                  <td>{{ vencimiento.qn_diasAnticipacion }}</td>
+                  <td>{{ vencimiento.qn_frecuenciaAnticipacion }}</td>
+                  <td><a><i class="fa fa-refresh" aria-hidden="true"></i></a></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>

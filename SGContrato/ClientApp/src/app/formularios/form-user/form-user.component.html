@@ -1,0 +1,27 @@
+<div class="modal-header">
+  <h4 class="modal-title">Usuarios</h4>
+  <button type="button" class="close" aria-label="Close"
+          (click)="activeModal.dismiss('Cross click')">
+    x
+  </button>
+</div>
+<table class="table table-striped-sm table-hover text-center">
+  <thead>
+    <tr>
+      <th scope="col">Nombre de Usuario</th>
+      <th scope="col">Nombres</th>
+      <th scope="col">Apellidos</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor=" let user of users | paginate: { itemsPerPage: 4, currentPage: paginaActual} " (click)="submitForm(user)">
+      <td>{{ user.txt_username }}</td>
+      <td>{{ user.txt_nombre | titlecase }}</td>
+      <td>{{ user.txt_apellido | titlecase }}</td>
+    </tr>
+  </tbody>
+</table>
+<pagination-controls (pageChange)="paginaActual = $event" *ngIf="users?.length>4"></pagination-controls>
+<div class="modal-footer">
+  <button (click)="activeModal.dismiss('Close clicked')">Cancelar</button>
+</div>

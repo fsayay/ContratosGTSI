@@ -1,0 +1,41 @@
+<div class="modal-header">
+  <h4 class="modal-title">Nueva Solicitud de Transferencia</h4>
+  <button type="button" class="close" aria-label="Close"
+          (click)="activeModal.dismiss('Cross click')">
+    x
+  </button>
+</div>
+<form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <div class="modal-boy">
+    <div class="container">
+      <p>
+        Ud. a elegido <strong>{{ cantContratos }}</strong> contratos para transferir
+      </p>
+      <mat-form-field>
+        <mat-label>¿Motivo de la Transferencia?</mat-label>
+        <textarea matInput
+                  formControlName="txt_motivoTransferencia"
+                  cdkTextareaAutosize
+                  cdkAutosizeMinRows="1"
+                  cdkAutosizeMaxRows="5"></textarea>
+      </mat-form-field>
+      <mat-form-field>
+        <input #formAdm formControlName="txt_admRecomendado" matInput readonly placeholder="Trasferir a" (click)="elegirAdministrador()">
+      </mat-form-field>
+      <mat-form-field>
+        <input #formDes formControlName="txt_destinatario" matInput readonly placeholder="Enviar a" (click)="elegirDestinatario()">
+      </mat-form-field>
+
+    </div>
+  </div> 
+  <div class="modal-footer row">
+    <div class="col-6">
+      <button class="btn btn-primary" [disabled]="!formGroup.valid">Aceptar</button>
+    </div>
+    <div class="col-5">
+      <button (click)="activeModal.dismiss('Close clicked')">Cancelar</button>
+    </div>
+  </div>  
+</form>
+
+

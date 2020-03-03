@@ -1,0 +1,10 @@
+<app-header></app-header>
+<router-outlet></router-outlet>
+<app-footer></app-footer>
+<ul class="notifications">
+    <li *ngFor="let item of vencimientos$">
+        <div class="alert alert-danger">
+            {{item.txt_nombreSeccion}}
+        </div>
+    </li>
+</ul>

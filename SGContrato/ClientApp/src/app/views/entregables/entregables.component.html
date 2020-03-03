@@ -1,0 +1,51 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <app-sidenav></app-sidenav>
+    </div>
+    <div class="col-10 content">
+      <div class="title borde-title">
+        <a [routerLink]="['/contratos']"> Contratos </a> / Entregables 
+      </div>
+      <div class="content-section">
+        <div class="table">
+          <div class="table-responsive">
+            <span class="table-add float-right mb-0 mr-0">
+              <a class="text-warning" (click)="openFormModal()">
+                <i class="fa fa-fw fa-plus fa-2x" aria-hidden="true"></i>
+              </a>
+            </span>
+            <p *ngIf="!(entregables && entregables.length)">
+              No Existen Datos que Mostrar
+            </p>
+            <div *ngIf="entregables && entregables.length">
+              <table class="table table-striped-sm table-hover text-center">
+                <thead>
+                  <tr>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Tipo</th>
+                    <th scope="col">Descripcion</th>
+                    <th scope="col">Fecha Entrega</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let entregable of entregables | paginate: { itemsPerPage: 4, currentPage: paginaActual}">
+                    <td>{{entregable.qn_cantidadEntregable}}</td>
+                    <td>{{entregable.tipoEntregable}}</td>
+                    <td>{{entregable.txt_descripcionEntregable}}</td>
+                    <td>{{entregable.dt_fechaEntregable | date: 'dd-MM-yyyy' }}</td>
+                    <td><a (click)="updateEntregable(entregable)"><i class="fa fa-edit" aria-hidden="true"></i></a></td>
+                    <td><a><i class="fa fa-file-pdf-o" aria-hidden="true"></i></a></td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="paginaActual = $event" *ngIf="entregables.length>itemsPerPage"></pagination-controls>
+            </div>            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
