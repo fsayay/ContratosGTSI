@@ -1,0 +1,33 @@
+<div class="modal-header">
+  <h4 class="modal-title">Nueva Categoria</h4>
+  <button type="button" class="close" aria-label="Close"
+          (click)="activeModal.dismiss('Cross click')">x
+  </button>
+</div>
+<form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <div class="modal-boy">
+    <div class="container">
+      <div class="form-group row">
+        <label for="txt_nombreSeccion" class="col-sm-4 col-form-label">Nombre</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="txt_nombreSeccion" id="txt_nombreSeccion" name="txt_nombreSeccion">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="txt_detalleSeccion" class="col-sm-4 col-form-label">Detalle</label>
+        <div class="col-sm-8">
+          <textarea class="form-control" id="txt_detalleSeccion" formControlName="txt_detalleSeccion" name="txt_detalleSeccion" rows="3"></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer row">
+    <div class="col-6">
+      <button class="btn btn-primary" [disabled]="!formGroup.valid">Aceptar</button>
+    </div>
+    <div class="col-5">
+      <button (click)="activeModal.dismiss('Close clicked')">Cancelar</button>
+    </div>
+  </div>
+</form>
+

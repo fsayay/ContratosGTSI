@@ -1,0 +1,45 @@
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <app-menu></app-menu>
+    </div>
+    <div class="col-10 content">
+      <div class="title borde-title">
+        <a [routerLink]="['/Configuracion']"> Categoria </a> 
+      </div>
+      <div class="content-section">
+        <div class="table">
+          <div class="table-responsive">
+            <span class="table-add float-right mb-0 mr-0">
+              <a class="text-warning" (click)="openFormModal()">
+                <i class="fa fa-fw fa-plus fa-2x" aria-hidden="true"></i>
+              </a>
+            </span>            
+            <div *ngIf="categorias && categorias.length">
+              <table class="table table-striped-sm table-hover text-center">
+                <thead>
+                  <tr>
+                    <th scope="col">Nombre Categoria</th>
+                    <th scope="col">Detalle</th>
+                    <th scope="col">Tipos</th>
+                    <th scope="col"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor=" let categoria of categorias | paginate: { itemsPerPage: 4, currentPage: paginaActual} ">
+                    <td>{{ categoria.txt_nombreSeccion }}</td>
+                    <td>{{ categoria.txt_detalleSeccion }}</td>
+                    <th><a (click)="mostrarTipos(categoria)"><i class="fa fa-book" aria-hidden="true"></i></a></th>
+                    <td><a (click)="editarCategoria(categoria)"><i class="fa fa-refresh" aria-hidden="true"></i></a></td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="paginaActual = $event" *ngIf="categorias.length>4"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

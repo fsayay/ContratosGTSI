@@ -1,0 +1,26 @@
+<!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
+        <div class="collapse navbar-collapse position-fixed d-sm-inline-flex flex-sm-row-reverse"[ngClass]="{ show: isExpanded }">
+            <ul class="nav navbar-nav side-nav flex-grow">
+                <li>
+                  <img src="assets/img/contratos-sm.png" class="img-fluid"><a data-toggle="collapse" data-target="#submenu-contract"><strong> Contratos</strong><i class="fa fa-angle-double-down pull-right"></i></a>
+                  <ul id="submenu-contract" class="collapse show" #ulContrato>
+                    <li><a [routerLink]="['/DatosGenerales']"><small> Datos Generales</small></a></li>
+                    <li><a [routerLink]="['/Garantia']"><small> Garantias</small></a></li>
+                    <li><a [routerLink]="['/formaPago']"><small> Forma de Pago</small></a></li>
+                    <li><a [routerLink]="['/Entregables']"><small> Entregables</small></a></li>
+                    <li><a [routerLink]="['/Modificacion']"><small> Modificaci&oacute;n</small></a></li>
+                    <li><a [routerLink]="['/Informes']"><small> Informes</small></a></li>
+                    <li><a [routerLink]="['/Multa']"><small> Multas</small></a></li>
+                    <li><a [routerLink]="['/Acta']"><small> Actas de Recepci&oacute;n</small></a></li>
+                    <li><a [routerLink]="['/Vencimientos']"><small> Vencimientos</small></a></li>
+                    <li><a [routerLink]="['/Solicitud']"><small> Solicitud de Transferencia</small></a></li>
+                  </ul>
+                </li>
+                <li>
+                  <img src="assets/img/Consulta-generica-sm.png" class="img-fluid"><a [routerLink]="['/Consulta']"><strong> Consulta Gen&eacute;rica </strong><i class="fa fa-angle-double-right pull-right"></i></a>
+                </li>
+                <li>
+                  <img src="assets/img/historial-sm.png" class="img-fluid"><a [routerLink]="['/Historial']"><strong> Historial </strong><i class="fa fa-angle-double-right pull-right"></i></a>
+                </li>                
+            </ul>
+        </div>

@@ -1,0 +1,105 @@
+<div class="modal-header">
+  <h4 class="modal-title">{{ titulo }}</h4>
+  <button type="button" class="close" aria-label="Close"
+          (click)="activeModal.dismiss('Cross click')">
+    x
+  </button>
+</div>
+<form [formGroup]="formGroup" (ngSubmit)="submitForm()">
+  <div class="modal-boy">
+    <div class="container">
+      <div class="form-group row">
+        <label for="qn_tipoActa" class="col-sm-4 col-form-label">Tipo de Acta</label>
+        <div class="col-sm-8">
+          <select class="form-control"  formControlName="qn_tipoActa">
+            <option selected disabled>Seleccione</option>
+            <option *ngFor="let tipo of tiposActa" [ngValue]="qn_tipoActa" value="{{tipo.tipoID}}">{{tipo.txt_nombreTipo}}</option>
+          </select>          
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="txt_codigoActa" class="col-sm-4 col-form-label">C&oacute;digo</label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" formControlName="txt_codigoActa" name="txt_codigoActa">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="dt_fechaActa" class="col-sm-4 col-form-label">Fecha de Acta</label>
+        <div class="col-sm-8">
+          <input class="form-control" type="date" formControlName="dt_fechaActa" name="dt_fechaActa" value="dt_fechaActa">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="txt_archivoActa" class="col-sm-4 col-form-label">Subir Archivo</label>
+        <div class="col-sm-8">
+          <input #file type="file" class="form-control-file" formControlName="txt_archivoActa" multiple (change)="upload(file.files)" accept=".pdf" name="txt_archivoActa" />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer row">
+    <div class="col-6">
+      <button class="btn btn-primary" [disabled]="!formGroup.valid">Aceptar</button>
+    </div>
+    <div class="col-5">
+      <button (click)="activeModal.dismiss('Close clicked')">Cancelar</button>
+    </div>
+  </div>
+</form>
+
+
+
+<!--
+
+<div class="form-group">
+  <label>Nombres y Apellidos</label>
+  <input type="text" formControlName="nya" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.nya.errors }" />
+  <div *ngIf="submitted && f.nya.errors" class="invalid-feedback">
+    <div *ngIf="f.nya.errors.required">Por favor, ingresa tus Nombres y Apellidos</div>
+  </div>
+</div>
+<div class="form-group">
+  <label>Email</label>
+  <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+  <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+    <div *ngIf="f.email.errors.required">El email es obligatorio</div>
+    <div *ngIf="f.email.errors.email">Por favor, ingresa tu Email</div>
+  </div>
+</div>
+<div class="form-group">
+  <label>Asunto</label>
+  <input type="text" formControlName="asunto" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.asunto.errors }" />
+  <div *ngIf="submitted && f.asunto.errors" class="invalid-feedback">
+    <div *ngIf="f.asunto.errors.required">Por favor, ingresa el Asunto</div>
+  </div>
+</div>
+<div class="form-group">
+  <label for="postre"> Postre</label>
+  <select class="form-control" formControlName="postre" [ngClass]="{ 'is-invalid': submitted && f.postre.errors }">
+    <option value="">Seleccionar</option>
+    <option value="Crema Volteada">Crema Volteada</option>
+    <option value="Gelatina de Fresa">Gelatina de Fresa</option>
+    <option value="Keke de Naranja">Keke de Naranja</option>
+    <option value="Pie de Manzana">Pie de Manzana</option>
+    <option value="Torta de Chocolate">Torta de Chocolate</option>
+
+  </select>
+  <div *ngIf="submitted && f.postre.errors" class="invalid-feedback">
+    <div *ngIf="f.postre.errors.required">Por favor, Selecciona el Postre</div>
+  </div>
+</div>
+<div class="form-group">
+  <label for="mensaje">Mensaje</label>
+  <textarea class="form-control" formControlName="mensaje" rows="3" [ngClass]="{ 'is-invalid': submitted && f.mensaje.errors }"></textarea>
+  <div *ngIf="submitted && f.mensaje.errors" class="invalid-feedback">
+    <div *ngIf="f.mensaje.errors.required">Por favor, ingresa el Mensaje ( 6 Caracteres mínimo )</div>
+  </div>
+</div>
+<div class="form-group">
+  <button [disabled]="loading" class="btn btn-primary">Aceptar</button>
+</div>
+
+
+
+
+-->

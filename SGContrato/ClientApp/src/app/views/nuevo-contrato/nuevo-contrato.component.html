@@ -1,0 +1,289 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-2">
+      <app-sidenav></app-sidenav>
+    </div>
+    <div class="col-10 content">
+      <div class="title borde-title">
+        <a [routerLink]="['/contratos']"> Contratos </a>/ Nuevo Contrato
+      </div>
+      <form [formGroup]="formGroup">
+        <div class="content-section  overflow-auto">
+          <div id="accordion">
+            <div class="card well well-sm">
+              <div class="card-header well well-sm" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    Informaci&oacute;n General
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <table id="responsive-example-table" class="large-only" cellspacing="0">
+                        <tbody>
+                          <tr>
+                            <td class="label"><strong>C&oacute;digo de Contrato</strong></td>
+                            <td style="border-right: 8px #fff solid">
+                              <input type="text" class="sinborde inputText" formControlName="txt_codigoContrato">
+                              <span *ngIf="codigo.invalid && (codigo.dirty || codigo.touched)" class="alert alert-danger">
+                                <span *ngIf="codigo.errors.required" class="sinborde">
+                                  ¡este campo es requerido!!
+                                </span>
+                              </span>
+                            </td>
+                            <td class="label"><strong>Plazo del Contrato</strong></td>
+                            <td>
+                              <div class="input-group textArea right-inner-addon">
+                                <!-->input type="number" class="sinborde plazo" formControlName="qn_vigenciaContrato"-->
+                                <input type="text" class="sinborde plazo" onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="qn_vigenciaContrato" />
+                                <div class="input-group-append">
+                                  <span class="input-group-text">D&iacute;as</span>
+                                </div>
+                                <span *ngIf="vigencia.invalid && (vigencia.dirty || vigencia.touched)" class="alert alert-danger">
+                                  <span *ngIf="vigencia.errors.required" class="sinborde">
+                                    ¡este campo es requerido!!
+                                  </span>
+                                </span>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="label"><strong>Tipo Contrato</strong></td>
+                            <td style="border-right: 8px #fff solid">
+                              <select class="form-control sinborde inputText small" id="qn_tipoContrato" formControlName="qn_tipoContrato">
+                                <option value="" selected="selected" disabled="disabled">Elige una opción</option>
+                                <option *ngFor="let tipo of tiposContrato" value="{{tipo.tipoID}}">{{tipo.txt_nombreTipo}}
+                                </option>                                
+                              </select>
+                            </td>
+                            <td class="label"><strong>Fecha de Suscripcion</strong></td>
+                            <td>
+                              <input type="date" class="sinborde inputText" formControlName="dt_fechaSuscripcion">                              
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="label"><strong>Numero de Proceso</strong></td>
+                            <td style="border-right: 8px #fff solid">
+                              <input type="text" class="sinborde inputText" formControlName="txt_numProceso">
+                              <span *ngIf="numProceso.invalid && (numProceso.dirty || numProceso.touched)" class="alert alert-danger">
+                                <span *ngIf="numProceso.errors.required" class="sinborde">
+                                  ¡este campo es requerido!!
+                                </span>
+                              </span>
+                            </td>
+                            <td class="label"><strong>Fecha de Inicio</strong></td>
+                            <td class="inputDate">
+                              <input type="date" class="sinborde inputText" formControlName="dt_fechaInicio">                                                           
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="label"><strong>Tipo de Proceso</strong></td>
+                            <td style="border-right: 8px #fff solid">
+                              <select class="form-control sinborde inputText" id="qn_tipoContrato" formControlName="qn_tipoProceso">
+                                <option selected disabled>Seleccione uno</option>
+                                <option *ngFor="let tipo of tiposProceso" value="{{tipo.tipoID}}">{{tipo.txt_nombreTipo}}</option>
+                              </select>
+                            </td>
+                            <td class="label"><strong>Fecha de Finalizaci&oacute;n</strong></td>
+                            <td>
+                              <input type="date" class="sinborde inputText" formControlName="dt_fechaFin">                              
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="label"><strong>Monto Adjudicado</strong></td>
+                            <td style="border-right: 8px #fff solid">
+                              <input style="text-align-last:left;" currencyMask [(ngModel)]="value" min="-10.50" class="form-control sinborde inputText" formControlName="vm_montoAdjudicado" />
+                              <span *ngIf="monto.invalid && (monto.dirty || monto.touched)" class="alert alert-danger">
+                                <span *ngIf="monto.errors.required" class="sinborde">
+                                  ¡este campo es requerido!!
+                                </span>
+                              </span>
+                            </td>
+                            <td class="label"><strong>Recurrencia</strong></td>
+                            <td>
+                              <div class="form-control sinborde">
+                                <label class="radio-inline radioRecurrencia">
+                                  <input type="radio" class="sinborde inputRecurrencia" value="false" formControlName="bol_recurrencia" [checked]="'checked'"><small>NO</small>
+                                </label>
+                                <label class="radio-inline radioRecurrencia">
+                                  <input type="radio" class="sinborde inputRecurrencia" value="true" formControlName="bol_recurrencia"><small>SI</small>
+                                </label>
+                              </div>
+                              
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="label"><strong>Proveedor</strong></td>
+                            <td style="border-right: 8px #fff solid">
+                              <input type="text" class="sinborde inputText" formControlName="txt_nombreProveedor">
+                              <span *ngIf="nombreProveedor.invalid && (nombreProveedor.dirty || nombreProveedor.touched)" class="alert alert-danger">
+                                <span *ngIf="nombreProveedor.errors.required" class="sinborde">
+                                  ¡este campo es requerido!!
+                                </span>                                
+                              </span>
+                            </td>
+                            <td class="label"><strong>RUC</strong></td>
+                            <td>
+                              <input type="text" class="sinborde textArea" onkeypress='return event.charCode >= 48 && event.charCode <= 57' formControlName="txt_rucProveedor" />
+                              <span *ngIf="ruc.invalid && (ruc.dirty || ruc.touched)" class="alert alert-danger">
+                                <span *ngIf="ruc.errors.required" class="sinborde">
+                                  ¡este campo es requerido!!
+                                </span>
+                                <span *ngIf="ruc.errors.minlength">
+                                  Minimo 13 numeros
+                                </span>
+                                <span *ngIf="ruc.errors.maxlength">
+                                  Maximo 13 numeros
+                                </span>
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="espacio"><strong>Obj. Contratacion</strong></td>
+                            <td colspan="3" class="tdContent">
+                              <input type="text" class="sinborde textArea" formControlName="txt_objetoContratacion">
+                              <span *ngIf="objContratacion.invalid && (objContratacion.dirty || objContratacion.touched)" class="alert alert-danger">
+                                <span *ngIf="objContratacion.errors.required" class="sinborde">
+                                  ¡este campo es requerido!!
+                                </span>
+                              </span>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="espacio"><strong>Formas de Pago</strong></td>
+                            <td colspan="3" class="tdContent"><input type="text" class="sinborde textArea" formControlName="txt_detalleFormaPago"></td>
+                          </tr>
+                          <tr>
+                            <td class="espacio"><strong>Garantias</strong></td>
+                            <td colspan="3" class="tdContent"><input type="text" class="sinborde textArea" formControlName="txt_detalleGarantias"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                    Unidad Consolidadora
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <table id="responsive-example-table" class="large-only" cellspacing="0">
+                        <tbody>
+                          <tr align="left">
+                            <td class="label"><strong>Director Unidad</strong></td>
+                            <td colspan="2" class="tdContent">
+                              <select class="form-control sinborde" (change)="elegirUnidad($event.target.value)" formControlName="qn_unidadConsolidadora">
+                                <option selected disabled>Seleccione</option>
+                                <option *ngFor="let unidad of unidades" value="{{unidad.ID-1}}">{{unidad.nombre}}</option>
+                              </select>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="label"><strong>Descripci&oacute;n</strong></td>
+                            <td colspan="2" class="tdContent"><input type="text" class="sinborde textArea" readonly placeholder="Breve descripcion de la unidad" formControlName="descripcion"></td>
+                          </tr>
+                          <tr>
+                            <td class="label"><strong>Correo Electronico</strong></td>
+                            <td colspan="2" class="tdContent"><input type="email" class="sinborde textArea" readonly placeholder="Correo electronico" formControlName="email"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                    Informaci&oacute;n Referencial
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <table id="responsive-example-table" class="large-only" cellspacing="0">
+                        <tbody>
+                          <tr align="left">
+                            <td class="label"><strong>Nombre Delegado</strong></td>
+                            <td colspan="2" class="tdContent"><input type="text" class="sinborde areaFile" formControlName="txt_nombreDelegado"></td>
+                          </tr>
+                          <tr>
+                            <td class="label"><strong>Nombre Administrador</strong></td>
+                            <td colspan="2" class="tdContent"><input class="sinborde areaFile" #admin readonly formControlName="nombreAdmin"></td>
+                          </tr>
+                          <tr>
+                            <td class="label"><strong>Nombre Tecnico Externo</strong></td>
+                            <td colspan="2" class="tdContent"><input type="text" class="sinborde areaFile" formControlName="txt_nombreTecnicoExterno"></td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingFour">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                    Evidencias
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordion">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-12">
+                      <table id="responsive-example-table" class="large-only" cellspacing="0">
+                        <tbody>
+                          <tr>
+                            <td class="label"><strong>Contrato</strong></td>
+                            <td colspan="2" class="tdContent">
+                              <!--input #file type="file" multiple (change)="upload(file.files)" /-->
+                              <input #file type="file" class="form-control-file sinborde areaFile" (change)="upload(file.files)" accept=".pdf" id="txt_archivoContrato" formControlName="txt_archivoContrato" />
+                              <span style="font-weight:bold;color:green;" *ngIf="progress > 0 && progress < 100">
+                                {{progress}}%
+                              </span>
+
+                              <span style="font-weight:bold;color:green;" *ngIf="message">
+                                {{message}}
+                              </span>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div>
+          <span class="table-add float-right mb-0 mr-0">
+            <button class="btn btn-primary" (click)="onSubmit()">Guardar</button>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+

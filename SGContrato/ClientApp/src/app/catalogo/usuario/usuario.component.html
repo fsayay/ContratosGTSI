@@ -1,0 +1,43 @@
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <app-menu></app-menu>
+    </div>
+    <div class="col-10 content">
+      <div class="title borde-title">
+        <a [routerLink]="['/Configuracion']"> Configuracion</a>/ Usuarios
+      </div>
+      <div class="content-section">
+        <div class="table">
+          <div class="table-responsive">
+            <span class="table-add float-right mb-0 mr-0">
+              <a class="text-warning" (click)="openFormModal()">
+                <i class="fa fa-fw fa-plus fa-2x" aria-hidden="true"></i>
+              </a>
+            </span>            
+            <div *ngIf="usersrol && usersrol.length">
+              <table class="table table-striped-sm table-hover text-center">
+                <thead>
+                  <tr>
+                    <th scope="col">Usuario</th>
+                    <th scope="col">Nombres</th>
+                    <th scope="col">Rol</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor=" let usuario of usersrol | paginate: { itemsPerPage: 4, currentPage: paginaActual} ">
+                    <td>{{ usuario.usuario }}</td>
+                    <td>{{ usuario.nombre | titlecase }} {{ usuario.apellido | titlecase }}</td>
+                    <td>{{ usuario.nombreRol }}</td>
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="paginaActual = $event" *ngIf="usersrol.length>4"></pagination-controls>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

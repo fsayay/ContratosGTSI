@@ -1,0 +1,11 @@
+tbody tr:hover,
+tbody tr:focus {
+  outline: none;
+  background-color: #9ba8be !important;
+  color: #f2f2f2;   
+}
+
+.estado{
+  color: green;
+}
+

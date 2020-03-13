@@ -1,0 +1,52 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <app-sidenav></app-sidenav>
+    </div>
+    <div class="col-10 content">
+      <div class="title borde-title">
+        Contratos
+      </div>
+      <div class="content-section">
+            <div class="table">
+              <div class="table-responsive">
+                <div>
+                  <span *ngIf="usuario[0].nombreRol=='Administrador-Contrato'" class="table-add float-right mb-0 mr-0">
+                    <a class="text-warning" [routerLink]="['/registrar-contrato']">
+                      <i class="fa fa-fw fa-plus fa-2x" aria-hidden="true" title="Agregar Nuevo Contrato"></i>
+                    </a>
+                  </span>
+                <table class="table table-striped-sm table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">C&oacute;digo</th>
+                      <th scope="col">Obj. Contrataci&oacute;n</th>
+                      <th scope="col">Proveedor</th>
+                      <th scope="col">Valor adjudicado</th>
+                      <th scope="col">Fech. Inicio</th>
+                      <th scope="col">Fech. Fin</th>
+                      <th scope="col">Estado</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let contrato of contratos | paginate: { itemsPerPage: 4, currentPage: paginaActual}" (click)="mostrarDetalle(contrato)">
+                      <td>{{contrato.txt_codigoContrato}}</td>
+                      <td>{{contrato.txt_objetoContratacion}}</td>
+                      <td>{{contrato.txt_nombreProveedor}}</td>
+                      <td>{{contrato.vm_montoAdjudicado | currency}}</td>
+                      <td>{{contrato.dt_fechaInicio | date: 'dd-MM-yyyy'}}</td>
+                      <td>{{contrato.dt_fechaFin | date: 'dd-MM-yyyy'}}</td>
+                      <td class="activo" *ngIf="contrato.qn_estadoContrato == 44">Activo</td>
+                      <td class="pendiente" *ngIf="contrato.qn_estadoContrato == 45">Pendiente</td>
+                      <td class="nuevo" *ngIf="contrato.qn_estadoContrato == 61">Nuevo</td>
+                      <td class="finalizado" *ngIf="contrato.qn_estadoContrato == 62">Finalizado</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="paginaActual = $event" *ngIf="contratos?.length>4"></pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+</div>

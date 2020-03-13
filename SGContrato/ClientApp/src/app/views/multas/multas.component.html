@@ -1,0 +1,232 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-2">
+      <app-sidenav></app-sidenav>
+    </div>
+    <div class="col-10 content">
+      <div class="title borde-title">
+        <a [routerLink]="['/contratos']"> Contratos </a> / multas
+      </div>
+      <div class="content-section">
+        <div class="table">
+          <div class="table-responsive">
+            <span *ngIf="usuario[0].nombreRol=='Administrador-Contrato'" class="table-add float-right mb-0 mr-0">
+              <a class="text-warning" (click)="openFormModal()">
+                <i class="fa fa-fw fa-plus fa-2x" aria-hidden="true" title="Agregar Nueva Multa"></i>
+              </a>
+            </span>
+            <p *ngIf="!(multas && multas.length)">
+              No Existen Datos que Mostrar
+            </p>
+            <div *ngIf="multas && multas.length">
+              <table class="table table-striped-sm table-hover text-center">
+                <thead>
+                  <tr>
+                    <th scope="col">C&oacute;digo de Informe</th>
+                    <th scope="col">Tipo de Multa</th>
+                    <th scope="col">Valor de Multa</th>
+                    <th scope="col">Fecha de Multa</th>
+                    <th scope="col" *ngIf="usuario[0].nombreRol=='Administrador-Contrato'"></th>                    
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor=" let multa of multas | paginate: { itemsPerPage: 4, currentPage: paginaActual} ">
+                    <td>{{ multa.txt_codigoInforme }}</td>
+                    <td>{{ multa.tipoMulta }}</td>
+                    <td>{{ multa.vm_montoMulta | currency }}</td>
+                    <td>{{ multa.dt_fechaMulta | date: 'dd-MM-yyyy' }}</td>
+                    <td *ngIf="usuario[0].nombreRol=='Administrador-Contrato'"><a (click)="update(multa)"><i class="fa fa-edit" aria-hidden="true" title="Modificar Multa"></i></a></td>                    
+                  </tr>
+                </tbody>
+              </table>
+              <pagination-controls (pageChange)="paginaActual = $event" *ngIf="multas?.length>4"></pagination-controls>
+            </div>            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>  
+</div>
+
+<ng-template #nuevaMultaModal let-c="close" let-d="dissmiss">
+  <!-->div class="modal-header">
+    cabezera
+    <button type="button" class="close" (click)="c('')">x</button>
+  </!--div>
+  <div class="modal-body">
+    contenido
+  </div-->
+
+  <div class="modal-header">
+    <h4 class="modal-title">Nueva Multa</h4>
+    <button type="button" class="close" aria-label="Close" (click)="c('')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form>
+      <div class="form-group row">
+        <label for="tipoMulta" class="col-sm-6 col-form-label">Tipo de Multa</label>
+        <div class="col-sm-6">
+          <select class="form-control" id="tipoGarantia">
+            <option value="" disabled selected>Seleccione</option>
+            <option *ngFor="let tipo of tiposMulta" value="{{tipo.tipoID}}">{{tipo.txt_nombreTipo}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="valorMulta" class="col-sm-6 col-form-label">Valor</label>
+        <div class="col-sm-6">
+          <div class="input-group">
+            <div class="input-group-append">
+              <span class="input-group-text">$</span>
+            </div>
+            <input type="number" class="form-control" id="valorMulta">
+          </div>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="codigoInforme" class="col-sm-6 col-form-label">C&oacute;digo del Informe</label>
+        <div class="col-sm-6">
+          <input type="text" class="form-control" id="codigoInforme" (click)="open(informeMulta)">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="fechaMulta" class="col-sm-6 col-form-label">Fecha de Multa</label>
+        <div class="col-sm-6">
+          <input class="form-control" type="datetime-local" value="" id="fechaMulta">
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="motivoMulta" class="col-sm-6 col-form-label">Motivo de Multa</label>
+        <div class="col-sm-6">
+          <textarea class="form-control" id="motivoMulta" rows="3"></textarea>
+        </div>
+      </div>
+      <div class="form-group row">
+        <div class="col-sm-12 text-center">
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('')">Cancelar</button>
+  </div>
+
+</ng-template>
+
+<ng-template #informeMulta let-c="close" let-d="dissmiss">
+  <div class="modal-header">
+    <h4 class="modal-title">Informes</h4>
+    <button type="button" class="close" aria-label="Close" (click)="c('')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div class="table">
+      <div class="table-responsive">
+        <table class="table table-striped-sm table-hover text-center">
+          <thead>
+            <tr>
+              <th scope="col">C&oacute;digo</th>
+              <th scope="col">Tipo de Informe</th>
+              <th scope="col">Fecha de Informe</th>
+              <th scope="col"></th>
+              <th scope="col"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Inf001</td>
+              <td>Multa</td>
+              <td>2019-12-02</td>
+              <td></td>
+              <td></td>
+            </tr>
+            <tr>
+              <td>Inf002</td>
+              <td>Pago</td>
+              <td>2019-12-02</td>
+              <td></td>
+              <td></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-dark" (click)="c('')">Cancelar</button>
+  </div>
+
+</ng-template>
+
+<!-- The Modal -->
+<div class="modal fade" id="multaModal">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Nueva Multa</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <form>
+          <div class="form-group row">
+            <label for="tipoMulta" class="col-sm-6 col-form-label">Tipo de Multa</label>
+            <div class="col-sm-6">
+              <select class="form-control" id="tipoGarantia">
+                <option selected>Seleccione</option>
+                <option *ngFor="let tipo of tiposMulta" value="{{tipo.tipoID}}">{{tipo.txt_nombreTipo}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="valorMulta" class="col-sm-6 col-form-label">Valor</label>
+            <div class="col-sm-6">
+              <div class="input-group">
+                <div class="input-group-append">
+                  <span class="input-group-text">$</span>
+                </div>
+                <input type="number" class="form-control" id="valorMulta">                
+              </div>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="codigoInforme" class="col-sm-6 col-form-label">C&oacute;digo del Informe</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="codigoInforme">
+            </div>
+          </div>          
+          <div class="form-group row">
+            <label for="fechaMulta" class="col-sm-6 col-form-label">Fecha de Multa</label>
+            <div class="col-sm-6">
+              <input class="form-control" type="datetime-local" value="" id="fechaMulta">
+            </div>
+          </div>
+          <div class="form-group row">
+            <label for="motivoMulta" class="col-sm-6 col-form-label">Motivo de Multa</label>
+            <div class="col-sm-6">
+              <textarea class="form-control" id="motivoMulta" rows="3"></textarea>
+            </div>
+          </div>
+          <div class="form-group row">
+            <div class="col-sm-12 text-center">
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <!-- Modal footer -->
+      <!--div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div-->
+
+    </div>
+  </div>
+</div>
